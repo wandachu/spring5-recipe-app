@@ -3,6 +3,7 @@ package wanda.springframework.spring5recipeapp.bootstrap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,7 @@ public class DataLoader implements CommandLineRunner {
   }
 
   @Override
+  @Transactional
   public void run(String... args) throws Exception {
     log.debug("Loading bootstrap data...");
     recipeRepository.saveAll(this.loadRecipes());
