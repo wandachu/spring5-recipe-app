@@ -3,6 +3,7 @@ package wanda.springframework.spring5recipeapp.bootstrap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import wanda.springframework.spring5recipeapp.domain.Category;
@@ -15,6 +16,7 @@ import wanda.springframework.spring5recipeapp.repositories.CategoryRepository;
 import wanda.springframework.spring5recipeapp.repositories.RecipeRepository;
 import wanda.springframework.spring5recipeapp.repositories.UnitOfMeasureRepository;
 
+@Slf4j
 @Component
 public class DataLoader implements CommandLineRunner {
   private final CategoryRepository categoryRepository;
@@ -30,6 +32,7 @@ public class DataLoader implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+    log.debug("Loading bootstrap data...");
     recipeRepository.saveAll(this.loadRecipes());
   }
 
