@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class UnitOfMeasure {
+public class  UnitOfMeasure {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
