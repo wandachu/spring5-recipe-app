@@ -10,7 +10,6 @@ import wanda.springframework.spring5recipeapp.domain.Category;
 @Component
 public class CategoryCommandToCategory implements Converter<CategoryCommand, Category> {
 
-
   @Override
   @Synchronized
   @Nullable
