@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import wanda.springframework.spring5recipeapp.domain.Recipe;
-import wanda.springframework.spring5recipeapp.service.RecipeService;
+import wanda.springframework.spring5recipeapp.services.RecipeService;
 
 class IndexControllerTest {
   private IndexController indexController;

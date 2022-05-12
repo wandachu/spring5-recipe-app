@@ -1,26 +1,24 @@
 package wanda.springframework.spring5recipeapp.controllers;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import wanda.springframework.spring5recipeapp.services.RecipeService;
 
-@Slf4j
 @Controller
-public class IndexController {
+public class RecipeController {
   private final RecipeService recipeService;
 
   @Autowired
-  public IndexController(RecipeService recipeService) {
+  public RecipeController(RecipeService recipeService) {
     this.recipeService = recipeService;
   }
 
-  @RequestMapping({"", "/", "/index"})
-  public String getIndexPage(Model model) {
-    log.debug("Loading index page....");
-    model.addAttribute("recipes", recipeService.getRecipes());
-    return "index";
+  @RequestMapping("/recipe/show/{id}")
+  public String showById(Model model, @PathVariable String id) {
+    model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
+    return "recipe/show";
   }
 }
