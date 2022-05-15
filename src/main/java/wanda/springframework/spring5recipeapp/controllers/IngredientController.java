@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import wanda.springframework.spring5recipeapp.commands.IngredientCommand;
+import wanda.springframework.spring5recipeapp.commands.RecipeCommand;
+import wanda.springframework.spring5recipeapp.commands.UnitOfMeasureCommand;
 import wanda.springframework.spring5recipeapp.services.IngredientService;
 import wanda.springframework.spring5recipeapp.services.RecipeService;
 import wanda.springframework.spring5recipeapp.services.UnitOfMeasureService;
@@ -39,6 +41,23 @@ public class IngredientController {
   public String showRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
     model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
     return "recipe/ingredient/show";
+  }
+
+  @GetMapping
+  @RequestMapping("recipe/{recipeId}/ingredient/new")
+  public String newIngredient(@PathVariable String recipeId, Model model) {
+    // make sure we have a good id value
+    RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+
+    // need to return parent id for hidden form property
+    IngredientCommand ingredientCommand = new IngredientCommand();
+    ingredientCommand.setRecipeId(recipeCommand.getId());
+    model.addAttribute("ingredient", ingredientCommand);
+
+    // init uom
+    ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+    model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+    return "recipe/ingredient/ingredientform";
   }
 
   @GetMapping
