@@ -15,9 +15,13 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @Entity
 public class Recipe {
 
@@ -44,7 +48,7 @@ public class Recipe {
   private Set<Ingredient> ingredients = new HashSet<>();
 
   @Lob
-  private Byte[] image;
+  private byte[] image;
 
   @OneToOne(cascade = CascadeType.ALL)
   private Notes notes;
