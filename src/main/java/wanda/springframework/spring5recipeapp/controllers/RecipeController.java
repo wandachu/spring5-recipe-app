@@ -47,7 +47,7 @@ public class RecipeController {
     return "recipe/recipeform";
   }
 
-  @GetMapping("/recipe/{id}/delete")
+  @GetMapping("/{id}/delete")
   public String deleteById(@PathVariable String id) {
     log.debug("Loading index page....");
     recipeService.deleteById(Long.valueOf(id));

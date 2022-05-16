@@ -20,19 +20,32 @@
       <div class="panel-group">
         <div class="card card-primary border border-primary" style="margin: 20px 0">
           <div class="card-header bg-primary text-light">
-            <h7 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h7>
+            <div class="row">
+              <div class="col-md-5">
+                <h3 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h3>
+              </div>
+              <div class="col-md-7">
+                <a class="btn btn-light" href="#"
+                   th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+              </div>
+            </div>
           </div>
           <div class="card-body">
             <div class="row justify-content-center">
               <div class="col-md-3">
                 <h7>Categories:</h7>
               </div>
-              <div class="col-md-9">
+              <div class="col-md-3">
                 <ul>
                   <li th:remove="all">cat one</li>
                   <li th:remove="all">cat two</li>
                   <li th:each="category : ${recipe.getCategories()}" th:text="${category.getDescription()}">cat three</li>
                 </ul>
+              </div>
+              <div class="col-md-6">
+                <img src="../../static/images/guacamole400x400WithX.jpg"
+                     th:src="@{/images/guacamole400x400WithX.jpg}"
+                     width="200" height="200">
               </div>
             </div>
             <div class="row justify-content-center">
@@ -83,7 +96,7 @@
           <div class="card-header bg-primary text-light">
               <div class="row">
                 <div class="col-md-11 ">
-                  <h7 class="card-title">Ingredients</h7>
+                  <h5 class="card-title">Ingredients</h5>
                 </div>
                 <div class="col-md-1">
                   <a class="btn btn-light" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
@@ -108,7 +121,7 @@
         </div>
         <div class="card card-primary border border-primary" style="margin: 20px 0;">
           <div class="card-header bg-primary text-light">
-            <h7 class="card-title" >Directions</h7>
+            <h5 class="card-title" >Directions</h5>
           </div>
           <div class="card-body">
             <div class="row justify-content-center">
@@ -120,7 +133,7 @@
         </div>
         <div class="card card-primary border border-primary" style="margin: 20px 0;">
           <div class="card-header bg-primary text-light">
-            <h7 class="card-title" >Notes</h7>
+            <h5 class="card-title">Notes</h5>
           </div>
           <div class="card-body">
             <div class="row justify-content-center">
