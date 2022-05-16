@@ -46,7 +46,7 @@
                 <h7>Difficulty:</h7>
               </div>
               <div class="col-md-3">
-                <p  th:text="${recipe.getDifficulty()}">Easy</p>
+                <p  th:text="${recipe.getDifficulty.displayValue}">Easy</p>
               </div>
             </div>
             <div class="row justify-content-center">
@@ -82,9 +82,12 @@
         <div class="card card-primary border border-primary" style="margin: 20px 0;">
           <div class="card-header bg-primary text-light">
               <div class="row">
-                <div class="col-md-10"><h7 class="card-title" >Ingredients</h7></div>
-                <div class="col-md-2"><a class="btn btn-secondary btn-sm" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a></div>
-
+                <div class="col-md-11 ">
+                  <h2 class="card-title">Ingredients</h2>
+                </div>
+                <div class="col-md-1">
+                  <a class="btn btn-light" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+                </div>
               </div>
           </div>
           <div class="card-body">

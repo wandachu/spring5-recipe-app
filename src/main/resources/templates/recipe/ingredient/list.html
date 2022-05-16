@@ -22,9 +22,11 @@
         <div class="card card-primary border border-primary" style="margin: 20px 0">
           <div class="card-header bg-primary text-light">
             <div class="row">
-              <div class="col-md-10 "><h1 class="card-title">Ingredients</h1></div>
-              <div class="col-md-2">
-                <a class="btn btn-secondary btn-lg" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}" role="button">New</a>
+              <div class="col-md-11 ">
+                <h2 class="card-title">Ingredients</h2>
+              </div>
+              <div class="col-md-1">
+                <a class="btn btn-light" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}" role="button">New</a>
               </div>
             </div>
           </div>
