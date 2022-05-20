@@ -6,6 +6,9 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -13,6 +16,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import wanda.springframework.spring5recipeapp.controllers.RecipeController;
 import wanda.springframework.spring5recipeapp.converters.RecipeCommandToRecipe;
 import wanda.springframework.spring5recipeapp.converters.RecipeToRecipeCommand;
 import wanda.springframework.spring5recipeapp.domain.Recipe;
@@ -32,10 +38,16 @@ class RecipeServiceImplTest {
   @Mock
   RecipeCommandToRecipe recipeCommandToRecipe;
 
+  RecipeController controller;
+
+  MockMvc mockMvc;
+
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
     recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
+    controller = new RecipeController(recipeService);
+    mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
   }
 
   @Test
@@ -61,7 +73,14 @@ class RecipeServiceImplTest {
     NotFoundException thrown = assertThrows(NotFoundException.class, () -> {
       Recipe recipeReturned = recipeService.findById(1L);
     });
-    assertEquals("Recipe Not Found", thrown.getMessage());
+    assertEquals("Recipe Not Found. For ID value: 1", thrown.getMessage());
+  }
+
+  @Test
+  void getRecipeTestWrongFormatId() throws Exception {
+    mockMvc.perform(get("/recipe/abcd/show"))
+        .andExpect(status().isBadRequest())
+        .andExpect(view().name("400error"));
   }
 
   @Test
