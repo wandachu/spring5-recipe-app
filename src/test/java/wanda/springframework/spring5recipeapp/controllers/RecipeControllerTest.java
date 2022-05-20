@@ -15,7 +15,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import wanda.springframework.spring5recipeapp.commands.RecipeCommand;
@@ -74,9 +73,26 @@ class RecipeControllerTest {
 
     when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
-    mockMvc.perform(post("/recipe/save"))
+    mockMvc.perform(post("/recipe/save")
+        .param("id", "")
+        .param("description", "some string")
+        .param("directions", "some directions"))
         .andExpect(status().is3xxRedirection())
         .andExpect(view().name("redirect:/recipe/2/show"));
+  }
+
+  @Test
+  void testPostNewRecipeFormValidationFail() throws Exception {
+    RecipeCommand command = new RecipeCommand();
+    command.setId(2L);
+
+    when(recipeService.saveRecipeCommand(any())).thenReturn(command);
+
+    mockMvc.perform(post("/recipe/save")
+        .param("id", ""))
+        .andExpect(status().isOk()) // not redirect because we fail two validation
+        .andExpect(model().attributeExists("recipe"))
+        .andExpect(view().name("recipe/recipeform")); // back to this form since we fail
   }
 
   @Test
