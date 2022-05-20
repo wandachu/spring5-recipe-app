@@ -73,7 +73,7 @@ class RecipeControllerTest {
 
     when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
-    mockMvc.perform(post("/recipe/save")
+    mockMvc.perform(post("/recipe")
         .param("id", "")
         .param("description", "some string")
         .param("directions", "some directions"))
@@ -88,7 +88,7 @@ class RecipeControllerTest {
 
     when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
-    mockMvc.perform(post("/recipe/save")
+    mockMvc.perform(post("/recipe")
         .param("id", ""))
         .andExpect(status().isOk()) // not redirect because we fail two validation
         .andExpect(model().attributeExists("recipe"))
