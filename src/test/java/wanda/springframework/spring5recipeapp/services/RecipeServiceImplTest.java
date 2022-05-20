@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import wanda.springframework.spring5recipeapp.controllers.ControllerExceptionHandler;
 import wanda.springframework.spring5recipeapp.controllers.RecipeController;
 import wanda.springframework.spring5recipeapp.converters.RecipeCommandToRecipe;
 import wanda.springframework.spring5recipeapp.converters.RecipeToRecipeCommand;
@@ -47,7 +48,7 @@ class RecipeServiceImplTest {
     MockitoAnnotations.openMocks(this);
     recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     controller = new RecipeController(recipeService);
-    mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+    mockMvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new ControllerExceptionHandler()).build();
   }
 
   @Test
