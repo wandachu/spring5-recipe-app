@@ -16,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 import wanda.springframework.spring5recipeapp.converters.RecipeCommandToRecipe;
 import wanda.springframework.spring5recipeapp.converters.RecipeToRecipeCommand;
 import wanda.springframework.spring5recipeapp.domain.Recipe;
+import wanda.springframework.spring5recipeapp.exceptions.NotFoundException;
 import wanda.springframework.spring5recipeapp.repositories.RecipeRepository;
 
 class RecipeServiceImplTest {
@@ -50,6 +51,17 @@ class RecipeServiceImplTest {
     assertEquals(1L, recipeReturned.getId());
     verify(recipeRepository, times(1)).findById(anyLong());
     verify(recipeRepository, never()).findAll();
+  }
+
+  @Test
+  void getRecipeByIdTestNotFound() {
+    Optional<Recipe> recipeOptional = Optional.empty();
+    when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+    NotFoundException thrown = assertThrows(NotFoundException.class, () -> {
+      Recipe recipeReturned = recipeService.findById(1L);
+    });
+    assertEquals("Recipe Not Found", thrown.getMessage());
   }
 
   @Test

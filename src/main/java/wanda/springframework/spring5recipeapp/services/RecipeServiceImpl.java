@@ -9,6 +9,7 @@ import wanda.springframework.spring5recipeapp.commands.RecipeCommand;
 import wanda.springframework.spring5recipeapp.converters.RecipeCommandToRecipe;
 import wanda.springframework.spring5recipeapp.converters.RecipeToRecipeCommand;
 import wanda.springframework.spring5recipeapp.domain.Recipe;
+import wanda.springframework.spring5recipeapp.exceptions.NotFoundException;
 import wanda.springframework.spring5recipeapp.repositories.RecipeRepository;
 
 @Slf4j
@@ -29,7 +30,7 @@ public class RecipeServiceImpl implements
 
   @Override
   public Recipe findById(Long id) {
-    return recipeRepository.findById(id).orElseThrow(() -> new RuntimeException("Recipe Not Found!"));
+    return recipeRepository.findById(id).orElseThrow(() -> new NotFoundException("Recipe Not Found"));
   }
 
   @Override
