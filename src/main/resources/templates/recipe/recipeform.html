@@ -29,7 +29,7 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <label><b>Recipe Description:</b></label>
+                <b><label th:text="#{recipe.description}">Recipe Description:</label></b>
                 <input id="description" type="text" class="form-control" th:errorclass="is-invalid" th:field="*{description}" placeholder="description"/>
                 <div class="invalid-feedback">
                   <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" />
